@@ -1,7 +1,7 @@
 import { ContentList } from "@/pages/BaseTypes"
 import ShortcutService from "@/pages/Services/ShortcutService"
 import { Tabs } from "antd"
-import { FC, useEffect, useState } from "react"
+import { FC, useEffect, useRef, useState } from "react"
 
 const TabPane = Tabs.TabPane
 
@@ -14,14 +14,60 @@ export const Content: FC<ContentProps> = ({
 }) => {
   const [key, setKey] = useState<string>(list[0].title)
 
+  const keyRef = useRef(key)
+  useEffect(() => {
+    keyRef.current = key
+  }, [key])
+
+  useEffect(() => {
+    console.log(key)
+  }, [key])
+  const next = () => {
+    const index = list.findIndex(item => item.title === keyRef.current)
+    const isLast = index === list.length - 1
+    if (index !== -1 && !isLast) {
+
+      setKey(list[index + 1].title)
+    }
+  }
+
+  const prev = () => {
+    const index = list.findIndex(item => item.title === keyRef.current)
+    const isFirst = index === 0
+    if (index !== -1 && !isFirst) {
+      console.log(key, list[index - 1].title)
+      setKey(list[index - 1].title)
+    }
+  }
+
+  useEffect(() => {
+    const arrowUp = ShortcutService.arrowUp$.subscribe(() => {
+      prev()
+    })
+
+    const arrowDown = ShortcutService.arrowDown$.subscribe(() => {
+      next()
+    })
+
+    return () => {
+      arrowUp.unsubscribe();
+      arrowDown.unsubscribe();
+    }
+  }, [])
+
   return (
     <Tabs
-      style={{ background: '#fff' }}
       tabPosition="left"
+      activeKey={key}
+      onChange={(activeKey) => {
+        setKey(activeKey)
+      }}
       items={list.map(item => {
         return {
-          label: item.title,
           key: item.title,
+          label: <div>
+            {item.title}
+          </div>,
           children: (
             <div className="contentBox">
               <i className="iconImage">&#xe9d6;</i>

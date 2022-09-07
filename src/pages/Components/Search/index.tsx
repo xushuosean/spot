@@ -1,6 +1,9 @@
 import ShortcutService from '@/pages/Services/ShortcutService';
 import { Input, InputRef } from 'antd';
-import { useEffect, useRef, useState } from 'react';
+import {
+  SearchOutlined
+} from '@ant-design/icons';
+import { ChangeEventHandler, useEffect, useRef, useState } from 'react';
 import Draggable from 'react-draggable'
 import { Content } from '../Content';
 import { Mask } from '../Mask'
@@ -27,6 +30,10 @@ export const Search = () => {
     }
   }, [visible])
 
+  const [searchValue, setSearchValue] = useState('')
+  const onValueChange = (e: any) => {
+    setSearchValue(e.target.value)
+  }
 
   return (
     <>
@@ -40,7 +47,7 @@ export const Search = () => {
             }}
             className={styles.dragBox}
           >
-            <Input ref={inputRef} size="large" />
+            <Input prefix={<SearchOutlined />} style={{ background: 'inherit' }} value={searchValue} ref={inputRef} onChange={onValueChange} size="large" />
             <Content list={data} />
           </div>
         </Draggable>
