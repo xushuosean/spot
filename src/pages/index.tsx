@@ -1,15 +1,29 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { fromEvent } from 'rxjs';
 import yayJpg from '../assets/yay.jpg';
 import { Search } from './Components/Search';
 import Graphic from './Graphic';
 import ShortcutService from './Services/ShortcutService';
+import init, { getData } from "wasm-lib";
+
+type block = {
+  id: string,
+  label: string,
+}
+type Data = {
+  blocks: block[]
+}
 
 export default function HomePage() {
+  const [list, setList] = useState<Data>();
   const container = useRef<HTMLDivElement>(null)
   useEffect(() => {
     if (container.current)
       Graphic.createCanvas(container.current)
+    init().then(() => {
+      const initData = getData() as Data
+      setList(initData)
+    })
   }, [])
 
   useEffect(() => {
@@ -26,6 +40,15 @@ export default function HomePage() {
     <>
       <Search />
       <div style={{ height: '100%', width: '100%' }} className='ddd' ref={container}></div>
+      <div>
+        {
+          list?.blocks.map(b =>
+            <span key={b.id}>
+              {b.label}
+            </span>
+          )
+        }
+      </div>
     </>
   );
 }
