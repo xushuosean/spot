@@ -4,7 +4,8 @@ import yayJpg from '../assets/yay.jpg';
 import { Search } from './Components/Search';
 import Graphic from './Graphic';
 import ShortcutService from './Services/ShortcutService';
-import init, { getData } from "wasm-lib";
+import { ToolBox } from './ToolBox';
+// import init, { getData } from "wasm-lib";
 
 type block = {
   id: string,
@@ -20,10 +21,10 @@ export default function HomePage() {
   useEffect(() => {
     if (container.current)
       Graphic.createCanvas(container.current)
-    init().then(() => {
-      const initData = getData() as Data
-      setList(initData)
-    })
+    // init().then(() => {
+    //   const initData = getData() as Data
+    //   setList(initData)
+    // })
   }, [])
 
   useEffect(() => {
@@ -37,7 +38,8 @@ export default function HomePage() {
   }, [])
 
   return (
-    <>
+    <div className='yt-container'>
+      <ToolBox />
       <Search />
       <div style={{ height: '100%', width: '100%' }} className='ddd' ref={container}></div>
       <div>
@@ -49,6 +51,6 @@ export default function HomePage() {
           )
         }
       </div>
-    </>
+    </div>
   );
 }

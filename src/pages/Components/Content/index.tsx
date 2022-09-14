@@ -1,18 +1,27 @@
-import { ContentList } from "@/pages/BaseTypes"
+import { ContentType, ContentList, ContentEnums, ListItem, Actions } from "@/pages/BaseTypes"
 import ShortcutService from "@/pages/Services/ShortcutService"
 import { Tabs } from "antd"
 import { FC, useEffect, useRef, useState } from "react"
-
-const TabPane = Tabs.TabPane
+import { Preivew } from "../ContentCollection"
+import { ContentWrapper } from "../ContentWrapper"
+import { getChildren, navigation } from "../utils"
 
 type ContentProps = {
-  list: ContentList[]
+  list: ListItem[]
 }
 
 export const Content: FC<ContentProps> = ({
   list
 }) => {
-  const [key, setKey] = useState<string>(list[0].title)
+  const [key, setKey] = useState<string>('')
+
+  useEffect(() => {
+    if (list && list.length > 0 && key === '') {
+      setKey(list[0].id)
+    } else {
+      setKey('')
+    }
+  }, [list])
 
   const keyRef = useRef(key)
   useEffect(() => {
@@ -22,38 +31,59 @@ export const Content: FC<ContentProps> = ({
   useEffect(() => {
     console.log(key)
   }, [key])
-  const next = () => {
-    const index = list.findIndex(item => item.title === keyRef.current)
-    const isLast = index === list.length - 1
-    if (index !== -1 && !isLast) {
+  // const next = () => {
+  //   const index = list.findIndex(item => item.title === keyRef.current)
+  //   const isLast = index === list.length - 1
+  //   if (index !== -1 && !isLast) {
 
-      setKey(list[index + 1].title)
-    }
-  }
+  //     setKey(list[index + 1].title)
+  //   }
+  // }
 
-  const prev = () => {
-    const index = list.findIndex(item => item.title === keyRef.current)
-    const isFirst = index === 0
-    if (index !== -1 && !isFirst) {
-      console.log(key, list[index - 1].title)
-      setKey(list[index - 1].title)
-    }
-  }
+  // const prev = () => {
+  //   const index = list.findIndex(item => item.title === keyRef.current)
+  //   const isFirst = index === 0
+  //   if (index !== -1 && !isFirst) {
+  //     console.log(key, list[index - 1].title)
+  //     setKey(list[index - 1].title)
+  //   }
+  // }
+
+  // useEffect(() => {
+  //   const arrowUp = ShortcutService.arrowUp$.subscribe(() => {
+  //     prev()
+  //   })
+
+  //   const arrowDown = ShortcutService.arrowDown$.subscribe(() => {
+  //     next()
+  //   })
+
+  //   return () => {
+  //     arrowUp.unsubscribe();
+  //     arrowDown.unsubscribe();
+  //   }
+  // }, [])
 
   useEffect(() => {
-    const arrowUp = ShortcutService.arrowUp$.subscribe(() => {
-      prev()
-    })
-
-    const arrowDown = ShortcutService.arrowDown$.subscribe(() => {
-      next()
-    })
+    const enter = ShortcutService.enter$.subscribe(() => {
+      const record = list.find(item => item.id === key)
+      if (!record) return;
+      console.log(record)
+      const { action } = record
+      switch (action) {
+        case Actions.NAVIGATION:
+          navigation(record)
+          break;
+        default:
+          break;
+      }
+      // console.log(key)
+    });
 
     return () => {
-      arrowUp.unsubscribe();
-      arrowDown.unsubscribe();
+      enter.unsubscribe();
     }
-  }, [])
+  }, [key])
 
   return (
     <Tabs
@@ -64,16 +94,14 @@ export const Content: FC<ContentProps> = ({
       }}
       items={list.map(item => {
         return {
-          key: item.title,
+          key: item.id,
           label: <div>
             {item.title}
           </div>,
           children: (
-            <div className="contentBox">
-              <i className="iconImage">&#xe9d6;</i>
-              <h1>zzbd {item.title}</h1>
-              <h4 style={{ wordBreak: 'break-all' }}>here is description dafdsjfa;sdjfjldsf oijdalfjsdkfljoasijdflkja;lskdjoasdmlkjd;lfjaldkj </h4>
-            </div>
+            <ContentWrapper>
+              {getChildren(item.content)}
+            </ContentWrapper>
           )
         }
       })

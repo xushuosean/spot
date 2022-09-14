@@ -6,6 +6,8 @@ class ShortcutService {
   arrowUp$: Subject<boolean> = new Subject<boolean>();
   arrowDown$: Subject<boolean> = new Subject<boolean>();
 
+  enter$: Subject<boolean> = new Subject<boolean>();
+
   onGlobalKeydown(e: KeyboardEvent) {
     const { ctrlKey, key, metaKey } = e
     if (ctrlKey || metaKey) {
@@ -18,6 +20,8 @@ class ShortcutService {
       this.handleArrowUp(e)
     } else if (key === 'ArrowDown') {
       this.handleArrowDown(e)
+    } else if (key === 'Enter') {
+      this.handleEnter(e);
     }
   }
 
@@ -34,6 +38,11 @@ class ShortcutService {
   private handleArrowDown(e: KeyboardEvent) {
     e.preventDefault();
     this.arrowDown$.next(true)
+  }
+
+  private handleEnter(e: KeyboardEvent) {
+    e.preventDefault();
+    this.enter$.next(true)
   }
 }
 

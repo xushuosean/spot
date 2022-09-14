@@ -1,4 +1,5 @@
-import { Graph } from '@antv/x6';
+import { Addon, Graph } from '@antv/x6';
+import { Dnd } from '@antv/x6/lib/addon';
 
 const data = {
   // 节点
@@ -31,6 +32,7 @@ const data = {
 
 class Graphic {
   private graph: Graph | undefined;
+  private dnd: Addon.Dnd | undefined;
   createCanvas(dom: HTMLElement) {
     this.graph = new Graph({
       container: dom,
@@ -51,6 +53,10 @@ class Graphic {
 
   getGraph() {
     return this.graph;
+  }
+
+  getDnd() {
+    return this.dnd;
   }
 }
 

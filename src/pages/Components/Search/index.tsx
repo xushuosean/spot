@@ -3,12 +3,13 @@ import { Input, InputRef } from 'antd';
 import {
   SearchOutlined
 } from '@ant-design/icons';
-import { ChangeEventHandler, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Draggable from 'react-draggable'
 import { Content } from '../Content';
 import { Mask } from '../Mask'
 import styles from './index.less'
-import { data } from '../../data'
+import { getDataFaker } from '@/pages/utils';
+import { ListItem } from '@/pages/BaseTypes';
 
 export const Search = () => {
   const [visible, setVisible] = useState<boolean>(true)
@@ -35,6 +36,13 @@ export const Search = () => {
     setSearchValue(e.target.value)
   }
 
+
+  const [contentData, setContentData] = useState<ListItem[]>([])
+  useEffect(() => {
+    const listData = getDataFaker(searchValue);
+    setContentData(listData)
+  }, [searchValue])
+
   return (
     <>
       <Mask visible={visible} onClick={() => { setVisible(false) }}>
@@ -48,7 +56,7 @@ export const Search = () => {
             className={styles.dragBox}
           >
             <Input prefix={<SearchOutlined />} style={{ background: 'inherit' }} value={searchValue} ref={inputRef} onChange={onValueChange} size="large" />
-            <Content list={data} />
+            <Content list={contentData} />
           </div>
         </Draggable>
       </Mask>
