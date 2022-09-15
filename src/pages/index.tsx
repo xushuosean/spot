@@ -24,7 +24,9 @@ export default function HomePage() {
   const [list, setList] = useState<Data>();
   const container = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    if (container.current) Graphic.createCanvas(container.current)
+    if (container.current) {
+      Graphic.createCanvas(container.current)
+    }
     init().then(() => {
       const initData = getData() as Data
       setList(initData)

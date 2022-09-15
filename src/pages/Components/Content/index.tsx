@@ -1,6 +1,6 @@
 import { ContentType, ContentList, ContentEnums, ListItem, Actions } from "@/pages/BaseTypes"
 import ShortcutService from "@/pages/Services/ShortcutService"
-import { Tabs } from "antd"
+import { List, Popover, Tabs } from "antd"
 import { FC, useEffect, useRef, useState } from "react"
 import { Preivew } from "../ContentCollection"
 import { ContentWrapper } from "../ContentWrapper"
@@ -31,38 +31,6 @@ export const Content: FC<ContentProps> = ({
   useEffect(() => {
     console.log(key)
   }, [key])
-  // const next = () => {
-  //   const index = list.findIndex(item => item.title === keyRef.current)
-  //   const isLast = index === list.length - 1
-  //   if (index !== -1 && !isLast) {
-
-  //     setKey(list[index + 1].title)
-  //   }
-  // }
-
-  // const prev = () => {
-  //   const index = list.findIndex(item => item.title === keyRef.current)
-  //   const isFirst = index === 0
-  //   if (index !== -1 && !isFirst) {
-  //     console.log(key, list[index - 1].title)
-  //     setKey(list[index - 1].title)
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   const arrowUp = ShortcutService.arrowUp$.subscribe(() => {
-  //     prev()
-  //   })
-
-  //   const arrowDown = ShortcutService.arrowDown$.subscribe(() => {
-  //     next()
-  //   })
-
-  //   return () => {
-  //     arrowUp.unsubscribe();
-  //     arrowDown.unsubscribe();
-  //   }
-  // }, [])
 
   useEffect(() => {
     const enter = ShortcutService.enter$.subscribe(() => {

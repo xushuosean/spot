@@ -1,8 +1,10 @@
 import { Stencil } from "@antv/x6/lib/addon";
 import { Circle, Rect } from "@antv/x6/lib/shape/basic";
-import { Menu, Tree } from "antd"
+import { Button, Menu, Tree } from "antd"
 import { useEffect, useRef } from "react";
 import Graphic from "../Graphic";
+import { getUuid } from "../utils";
+import { zzbd, zzdw } from "./cellList";
 
 export const ToolBox = () => {
 
@@ -11,6 +13,16 @@ export const ToolBox = () => {
     setTimeout(() => {
       const stencil = new Stencil({
         title: 'Components',
+        getDropNode(draggingNode, options) {
+          const node = draggingNode.clone();
+          node.setAttrs({
+            isCreatedDiagram: {
+              id: getUuid(),
+              name: '创建在了ov1视图'
+            }
+          })
+          return node;
+        },
         target: Graphic.getGraph(),
         search(cell, keyword) {
           return cell.shape.indexOf(keyword) !== -1
@@ -40,7 +52,7 @@ export const ToolBox = () => {
         height: 40,
         attrs: {
           rect: { fill: '#31D0C6', stroke: '#4B4A67', strokeWidth: 6 },
-          text: { text: 'rect', fill: 'white' },
+          text: { text: '作战单位', fill: 'white' },
         },
       })
 
@@ -67,7 +79,8 @@ export const ToolBox = () => {
         height: 40,
         attrs: {
           rect: { fill: '#4B4A67', stroke: '#31D0C6', strokeWidth: 6 },
-          text: { text: 'rect', fill: 'white' },
+          text: { text: '作战部队', fill: 'white' },
+          desc: { text: '这是作战部队的描述' }
         },
       })
 
@@ -89,12 +102,13 @@ export const ToolBox = () => {
         },
       })
 
-      stencil.load([r, c, c2, r2.clone()], 'group1')
+      stencil.load([zzdw, zzbd], 'group1')
       stencil.load([c2.clone(), r2, r3, c3], 'group2')
     }, 300);
 
   }, [])
 
-
-  return <div style={{ width: 200, height: '100%', position: 'relative' }} ref={stencilContainer}></div>
+  return <>
+    <div style={{ width: 200, height: '100%', position: 'relative' }} ref={stencilContainer}></div>
+  </>
 }

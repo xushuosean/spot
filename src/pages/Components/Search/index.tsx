@@ -10,9 +10,10 @@ import { Mask } from '../Mask'
 import styles from './index.less'
 import { getDataFaker } from '@/pages/utils';
 import { ListItem } from '@/pages/BaseTypes';
+import { getData } from '@/request';
 
 export const Search = () => {
-  const [visible, setVisible] = useState<boolean>(true)
+  const [visible, setVisible] = useState<boolean>(false)
 
   const inputRef = useRef<InputRef>(null)
 
@@ -40,7 +41,10 @@ export const Search = () => {
   const [contentData, setContentData] = useState<ListItem[]>([])
   useEffect(() => {
     const listData = getDataFaker(searchValue);
-    setContentData(listData)
+    console.log(searchValue)
+    getData(searchValue).then(res => {
+      console.log(res)
+    })
   }, [searchValue])
 
   return (
