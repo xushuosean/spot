@@ -45,16 +45,22 @@
 
     .ant-tabs-tab {
       margin-top: 0 !important;
-      padding: 8px;
+      padding: 4px 4px 4px 10px !important;
 
       .ant-tabs-tab-btn {
         color: rgb(72, 72, 72);
         padding: 0 10px;
         text-align: left;
+        padding: 0 4px;
+        width: 100%;
       }
     }
 
     .ant-tabs-tab-active {
+
+      .highlightText {
+        background-color: transparent !important;
+      }
 
       .ant-tabs-tab-btn {
         background-color: #3677E7;
@@ -98,4 +104,10 @@
 .ant-tabs-tabpane {
   padding-left: 8px !important;
   padding: 8px;
+}
+
+.groupLabel {
+  margin-left: 10px;
+  padding-top: 8px;
+  border-top: 1px solid #CFCFCF;
 }

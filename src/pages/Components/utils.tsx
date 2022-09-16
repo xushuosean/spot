@@ -1,19 +1,41 @@
 import { message } from "antd"
-import { ContentEnums, ContentType, ListItem } from "../BaseTypes"
-import { Preivew, PreviewCell, PreviewDiagram, PreviewLine } from "./ContentCollection"
+import { createContext } from "react"
+import { ContentEnums, ContentType, GroupType, ListItem } from "../BaseTypes"
+import { Preivew, PreviewCell, PreviewDiagram, PreviewLine, PreviewShortcut } from "./ContentCollection"
 
 export const getChildren = (item: ListItem) => {
-  if (Number(item.content.type) === ContentEnums.PREVIEW) {
+  const numberType = Number(item.content.type)
+
+  console.log(item.title, numberType, ContentEnums.PREVIEW_SHORTCUT)
+  if (numberType === ContentEnums.PREVIEW) {
     return <Preivew record={item} />
-  } else if (Number(item.content.type) === ContentEnums.PREVIEW_CELL) {
+  } else if (numberType === ContentEnums.PREVIEW_CELL) {
     return <PreviewCell record={item} />
-  } else if (Number(item.content.type) === ContentEnums.PREVIEW_DIAGRAM) {
+  } else if (numberType === ContentEnums.PREVIEW_DIAGRAM) {
     return <PreviewDiagram record={item} />
-  } else if (Number(item.content.type) === ContentEnums.PREVIEW_LINE) {
+  } else if (numberType === ContentEnums.PREVIEW_LINE) {
     return <PreviewLine record={item} />
+  } else if (numberType === ContentEnums.PREVIEW_SHORTCUT) {
+    console.log('here run short')
+    return <PreviewShortcut record={item} />
   }
   return null
 }
+
+export const getGroupType = (type: GroupType) => {
+  switch (type) {
+    case GroupType.Knowledge:
+      return '知识库'
+    case GroupType.Related:
+      return '相关功能'
+    case GroupType.Shortcut:
+      return '快捷键'
+    default:
+      return ''
+  }
+}
+
+export const searchContext = createContext<{ searchValue: string }>({ searchValue: '' })
 
 export const getType = (type: string) => {
   if (type === 'cell') {

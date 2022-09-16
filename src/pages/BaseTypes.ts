@@ -17,12 +17,13 @@ export interface ListItem {
   id: Guid;
   shiftExtraAction?: Actions;
   action: Actions;
-  group: Groups;
+  group: string;
   type: Types,
   desc?: string,
   canCreate?: string,
   createTime?: string,
   eidtTime?: string,
+  keyCode?: string
 }
 
 export enum Types {
@@ -31,12 +32,13 @@ export enum Types {
   Find = 'find',
 }
 
-export type Groups = Record<GroupType, ListItem[]>
+// export type Groups = Record<GroupType, ListItem[]>
 
 export enum GroupType {
   None = 'none',
   Related = "related",
-  Knowledge = 'knowledge'
+  Knowledge = 'knowledge',
+  Shortcut = 'shortcut'
 }
 
 /** 操作的类型，这里不要动顺序 */
@@ -65,6 +67,7 @@ export enum ContentEnums {
   NONE,
   PREVIEW_DIAGRAM,
   PREVIEW_LINE,
+  PREVIEW_SHORTCUT
 }
 
 export type ContentInner = {

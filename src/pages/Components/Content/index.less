@@ -1,1 +1,40 @@
 .tabbarRender {}
+
+.tabNodeWrapper {
+  :global {
+    .ant-tabs-tab {
+      width: 100%;
+    }
+  }
+}
+
+.labelRender {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  font-weight: 400;
+  font-size: 14px;
+
+  img {
+    margin-right: 10px;
+    width: 14px;
+  }
+
+  .label {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .right {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    margin-left: 12px;
+
+    &>img {
+      width: 6px;
+    }
+  }
+}
