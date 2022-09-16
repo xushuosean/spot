@@ -2,6 +2,7 @@ import { Tabs } from 'antd';
 import React, { ReactElement, useEffect, useRef, useState } from 'react';
 import projectTreeViewModel from '@/pages/Components/ProjectTree/vm';
 import { mockDiagramData } from '@/pages/data';
+import styles from '@/pages/Components/Diagrams/index.less'
 
 export type Diagram = {
     key: string
@@ -14,7 +15,7 @@ const App: React.FC = () => {
     const [activeKey, setActiveKey] = useState<string>();
     const [openingDiagrams, setOpeningDiagrams] = useState<Diagram[]>([]);
 
-    const onChange = (newActiveKey: string) => {
+    const active = (newActiveKey: string) => {
         setActiveKey(newActiveKey);
     };
 
@@ -41,15 +42,18 @@ const App: React.FC = () => {
 
     useEffect(() => {
         projectTreeViewModel.openingDiagramId$.subscribe((id) => {
-            add(id)
+            if (diagramData.current.every(d => d.key !== id)) return
+            if (openingDiagrams.some(o => o.key === id)) active(id);
+            else add(id)
         })
     }, [])
 
     return (
         <Tabs
+            className={styles.diagram}
             hideAdd
             type="editable-card"
-            onChange={onChange}
+            onChange={active}
             activeKey={activeKey}
             onEdit={onEdit}
             items={openingDiagrams}
