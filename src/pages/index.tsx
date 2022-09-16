@@ -40,6 +40,7 @@ export default function HomePage() {
 
   return (
     <div className='yt-container'>
+      <button onClick={() => projectTreeViewModel.navigateToShape("ov-1_高层zz概念视图1", "2")}>点击</button>
       <ToolBox />
       <Search />
       <ProjectTree />
@@ -53,6 +54,6 @@ export default function HomePage() {
           )
         }
       </div> */}
-    </div>
+    </div >
   );
 }

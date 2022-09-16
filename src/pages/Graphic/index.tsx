@@ -1,5 +1,6 @@
 import { useRef, useEffect, FC } from "react";
 import GraphicService, { GraphData } from "../Services/GraphicService";
+import projectTreeViewModel from '@/pages/Components/ProjectTree/vm'
 
 type Graphic = {
     data: GraphData
@@ -7,10 +8,15 @@ type Graphic = {
 /** 视图组件 */
 const Graphic: FC<Graphic> = ({ data }) => {
     const container = useRef<HTMLDivElement>(null);
-    const Graphic = new GraphicService();
+    const graphicRef = useRef<GraphicService>(new GraphicService())
 
     useEffect(() => {
-        if (container.current && Graphic) Graphic.createCanvas(container.current, data)
+        if (!container.current) return
+        graphicRef.current.createCanvas(container.current, data)
+        if (projectTreeViewModel.navigateShapeId) graphicRef.current.selectCell(projectTreeViewModel.navigateShapeId)
+        return () => {
+            graphicRef.current?.dispose()
+        }
     }, [])
 
     return <div style={{ height: '100%', width: '100%' }} className='ddd' ref={container} />

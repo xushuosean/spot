@@ -17,11 +17,11 @@ class DiagramsViewModel {
 
     constructor() {
         makeAutoObservable(this, {}, {})
-        if (projectTreeViewModel) {
-            projectTreeViewModel.openingDiagramId$.subscribe((id) => {
-                this.openNewDiagram(id)
-            })
-        }
+        // if (projectTreeViewModel) {
+        //     projectTreeViewModel.openingDiagramId$.subscribe(({ diagramId, shapeId }) => {
+        //         this.openNewDiagram(diagramId)
+        //     })
+        // }
     }
 
     initDiagramData(diagramsData: Diagram[]) {
