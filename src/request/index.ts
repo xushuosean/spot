@@ -1,5 +1,10 @@
+import { ListItem } from '@/pages/BaseTypes';
 import request from './request.config'
 
-export function getData(str: string) {
+type SearchData = {
+  hits: ListItem[]
+}
+
+export function getData(str: string): Promise<SearchData> {
   return request.get(`/search?wd=${str}`)
 }

@@ -17,18 +17,39 @@ export interface ListItem {
   id: Guid;
   shiftExtraAction?: Actions;
   action: Actions;
+  group: Groups
+  type: Types,
+  desc?: string,
+  canCreate?: string,
+  createTime?: string,
+  eidtTime?: string,
 }
+
+export enum Types {
+  Cell = 'cell',
+  Line = 'line',
+  Find = 'find',
+}
+
+export enum Groups {
+  None = 'none',
+  Related = "related",
+  Knowledge = 'knowledge'
+}
+
+/** 操作的类型，这里不要动顺序 */
 
 export enum Actions {
   OPEN_DIAGRAM,    // 打开视图
   NONE,   // 无操作
   NAVIGATION,     // 导航
   IMPORT,   // 从知识库中导入
-  OPEN_VERSION,
-  CREATE_VERSION,
-  VIEW_COLLABORATE,
-  OPEN_KNOWLEDGEBASE,
-  CLOSE_ALL,
+  OPEN_VERSION, // 打开版本
+  CREATE_VERSION, // 创建版本
+  VIEW_COLLABORATE, // 查看协同
+  OPEN_KNOWLEDGEBASE, // 打开知识库
+  CLOSE_ALL,  // 关闭所有视图
+  FIND, // 查找替换
 }
 
 export interface ContentType {
@@ -39,6 +60,7 @@ export interface ContentType {
 export enum ContentEnums {
   PREVIEW,
   PREVIEW_CELL,
+  NONE
 }
 
 export type ContentInner = {

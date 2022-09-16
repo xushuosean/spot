@@ -40,10 +40,11 @@ export const Search = () => {
 
   const [contentData, setContentData] = useState<ListItem[]>([])
   useEffect(() => {
-    const listData = getDataFaker(searchValue);
-    console.log(searchValue)
+    // const listData = getDataFaker(searchValue);
+    // console.log(searchValue)
     getData(searchValue).then(res => {
-      console.log(res)
+      // console.log(res)
+      setContentData(res.hits)
     })
   }, [searchValue])
 
