@@ -17,7 +17,7 @@ export interface ListItem {
   id: Guid;
   shiftExtraAction?: Actions;
   action: Actions;
-  group: Groups
+  group: Groups;
   type: Types,
   desc?: string,
   canCreate?: string,
@@ -31,7 +31,9 @@ export enum Types {
   Find = 'find',
 }
 
-export enum Groups {
+export type Groups = Record<GroupType, ListItem[]>
+
+export enum GroupType {
   None = 'none',
   Related = "related",
   Knowledge = 'knowledge'
@@ -60,7 +62,9 @@ export interface ContentType {
 export enum ContentEnums {
   PREVIEW,
   PREVIEW_CELL,
-  NONE
+  NONE,
+  PREVIEW_DIAGRAM,
+  PREVIEW_LINE,
 }
 
 export type ContentInner = {

@@ -1,14 +1,16 @@
 import { message } from "antd"
 import { ContentEnums, ContentType, ListItem } from "../BaseTypes"
-import { Preivew, PreviewCell } from "./ContentCollection"
+import { Preivew, PreviewCell, PreviewDiagram, PreviewLine } from "./ContentCollection"
 
 export const getChildren = (item: ListItem) => {
   if (Number(item.content.type) === ContentEnums.PREVIEW) {
-    console.log('here is preview', item.title)
     return <Preivew record={item} />
   } else if (Number(item.content.type) === ContentEnums.PREVIEW_CELL) {
-    console.log('here is preview cell', item.title)
     return <PreviewCell record={item} />
+  } else if (Number(item.content.type) === ContentEnums.PREVIEW_DIAGRAM) {
+    return <PreviewDiagram record={item} />
+  } else if (Number(item.content.type) === ContentEnums.PREVIEW_LINE) {
+    return <PreviewLine record={item} />
   }
   return null
 }
@@ -16,6 +18,10 @@ export const getChildren = (item: ListItem) => {
 export const getType = (type: string) => {
   if (type === 'cell') {
     return '图元'
+  } else if (type === 'diagram') {
+    return '视图'
+  } else if (type === 'line') {
+    return '线'
   }
   return ''
 }

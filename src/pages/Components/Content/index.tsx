@@ -1,10 +1,11 @@
 import { ContentType, ContentList, ContentEnums, ListItem, Actions } from "@/pages/BaseTypes"
 import ShortcutService from "@/pages/Services/ShortcutService"
 import { List, Popover, Tabs } from "antd"
-import { FC, useEffect, useRef, useState } from "react"
+import React, { FC, ReactNode, useEffect, useRef, useState } from "react"
 import { Preivew } from "../ContentCollection"
 import { ContentWrapper } from "../ContentWrapper"
 import { closeAll, createVersion, find, getChildren, importFromKnowledg, navigation, noneAction, openDiagram, openKnowledgBase, viewCollaborate } from "../utils"
+import { LabelRender } from "./LabelRender"
 
 type ContentProps = {
   list: ListItem[]
@@ -68,7 +69,6 @@ export const Content: FC<ContentProps> = ({
         default:
           break;
       }
-      // console.log(key)
     });
 
     return () => {
@@ -84,12 +84,10 @@ export const Content: FC<ContentProps> = ({
         setKey(activeKey)
       }}
       items={list.map(item => {
-        console.log(Number(item.content.type))
         return {
           key: item.id,
-          label: <div>
-            {item.title}
-          </div>,
+          label: <LabelRender record={item} />,
+          group: item.group,
           children: (
             <ContentWrapper>
               {getChildren(item)}
@@ -99,5 +97,6 @@ export const Content: FC<ContentProps> = ({
       })
       }
     />
+
   )
 }
