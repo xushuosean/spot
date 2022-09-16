@@ -1,5 +1,7 @@
 import { Addon, Graph } from '@antv/x6';
 import { Dnd } from '@antv/x6/lib/addon';
+import projectTreeViewModel, { ProjectTreeViewModel } from '@/pages/Components/ProjectTree/vm'
+import { Subscription } from 'rxjs';
 
 export type GraphData = {
   nodes: Node[],
@@ -23,6 +25,14 @@ type Edge = {
 class GraphicService {
   private graph: Graph | undefined;
   private dnd: Addon.Dnd | undefined;
+  private subscriptions: Subscription[] = [];
+
+  constructor() {
+    const sub = projectTreeViewModel.navigateToShape$.subscribe((shapeId) => {
+      if (shapeId) this.selectCell(shapeId)
+    })
+    this.subscriptions.push(sub);
+  }
 
   createCanvas(dom: HTMLElement, data: GraphData) {
     this.graph = new Graph({
@@ -50,6 +60,17 @@ class GraphicService {
 
   getDnd() {
     return this.dnd;
+  }
+
+  selectCell(cellId: string) {
+    const selectingCell = this.graph?.getCellById(cellId)
+    if (!selectingCell) return
+    this.graph?.resetSelection([])
+    this.graph?.select(selectingCell)
+  }
+
+  dispose() {
+    this.subscriptions.forEach(sub => sub.unsubscribe())
   }
 }
 

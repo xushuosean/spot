@@ -1,13 +1,18 @@
 import { makeAutoObservable } from "mobx"
-import { Subject } from "rxjs"
+import { Subject, Subscription } from "rxjs"
 import { ProjectTreeFolder } from '@/pages/Components/ProjectTree/type'
-// implements IProjectTreeViewModel
 
-class ProjectTreeViewModel {
+type NavigateType = {
+    diagramId: string,
+    shapeId?: string
+}
+export class ProjectTreeViewModel {
 
     treeData: ProjectTreeFolder[] = []
     selectedNodeKey: string | undefined
-    openingDiagramId$: Subject<string> = new Subject<string>();
+    openingDiagram$: Subject<NavigateType> = new Subject<NavigateType>();
+    navigateToShape$: Subject<string> = new Subject<string>();
+    navigateShapeId: string | undefined
 
     constructor() {
         makeAutoObservable(this, {}, {})
@@ -17,15 +22,25 @@ class ProjectTreeViewModel {
         this.treeData = treeData
     }
 
-    navigateToShape(shapeId: string) {
+    navigateToShape = (diagramId: string, shapeId: string) => {
         // 找到视图
+        this.selectedNodeKey = diagramId;
+        this.openingDiagram$.next({ diagramId, shapeId });
         // 打开视图
         // 选中图元
     }
 
+    publishNavigateShapeId = (shapeId: string) => {
+        this.navigateToShape$.next(shapeId)
+    }
+
+    setNavigateShapeId = (shapeId: string) => {
+        this.navigateShapeId = shapeId
+    }
+
     doubleClickTreeNode(nodeKey: string) {
         this.selectedNodeKey = nodeKey;
-        this.openingDiagramId$.next(nodeKey);
+        this.openingDiagram$.next({ diagramId: nodeKey });
     }
 }
 

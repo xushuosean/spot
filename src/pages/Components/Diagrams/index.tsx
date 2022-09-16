@@ -41,12 +41,23 @@ const App: React.FC = () => {
     };
 
     useEffect(() => {
-        projectTreeViewModel.openingDiagramId$.subscribe((id) => {
-            if (diagramData.current.every(d => d.key !== id)) return
-            if (openingDiagrams.some(o => o.key === id)) active(id);
-            else add(id)
+        const sub = projectTreeViewModel.openingDiagram$.subscribe(({ diagramId, shapeId }) => {
+            if (diagramData.current.every(d => d.key !== diagramId)) return
+            if (openingDiagrams.some(o => o.key === diagramId)) {
+                // 已打开直接选中图元
+                active(diagramId);
+                if (shapeId) projectTreeViewModel.publishNavigateShapeId(shapeId)
+            }
+            else {
+                // 未打开先开视图再选中图元
+                add(diagramId)
+                if (shapeId) projectTreeViewModel.setNavigateShapeId(shapeId)
+            }
         })
-    }, [])
+        return () => {
+            sub.unsubscribe()
+        }
+    }, [openingDiagrams])
 
     return (
         <Tabs
