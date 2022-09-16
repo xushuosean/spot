@@ -2,7 +2,7 @@ import { Stencil } from "@antv/x6/lib/addon";
 import { Circle, Rect } from "@antv/x6/lib/shape/basic";
 import { Button, Menu, Tree } from "antd"
 import { useEffect, useRef } from "react";
-import Graphic from "../Graphic";
+import GraphicService from "../Services/GraphicService";
 import { getUuid } from "../utils";
 import { zzbd, zzdw } from "./cellList";
 
@@ -11,6 +11,7 @@ export const ToolBox = () => {
   const stencilContainer = useRef<HTMLDivElement>(null)
   useEffect(() => {
     setTimeout(() => {
+      const graphicService = new GraphicService();
       const stencil = new Stencil({
         title: 'Components',
         getDropNode(draggingNode, options) {
@@ -23,7 +24,7 @@ export const ToolBox = () => {
           })
           return node;
         },
-        target: Graphic.getGraph(),
+        target: graphicService.getGraph(),
         search(cell, keyword) {
           return cell.shape.indexOf(keyword) !== -1
         },

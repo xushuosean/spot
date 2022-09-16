@@ -1,5 +1,5 @@
 import { ContentInner, ContentType, ListItem } from "@/pages/BaseTypes"
-import Graphic from "@/pages/Graphic"
+import GraphicService from "@/pages/Services/GraphicService"
 import { Graph, Shape } from "@antv/x6"
 import { FC, useEffect, useRef } from "react"
 import { getType } from "../utils"
@@ -13,10 +13,8 @@ export const PreviewCell: FC<PreviewCellProps> = ({
   record
 }) => {
   const cellRef = useRef<HTMLDivElement>(null)
-
-  console.log(record)
-
-  const cell = Graphic.getGraph()?.getCellById((record.content.content as ContentInner).cellId)
+  const graphicService = new GraphicService();
+  const cell = graphicService.getGraph()?.getCellById((record.content.content as ContentInner).cellId)
   useEffect(() => {
     if (!cellRef.current) return;
     const graph = new Graph({
