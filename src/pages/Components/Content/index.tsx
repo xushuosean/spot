@@ -4,7 +4,7 @@ import { List, Popover, Tabs } from "antd"
 import { FC, useEffect, useRef, useState } from "react"
 import { Preivew } from "../ContentCollection"
 import { ContentWrapper } from "../ContentWrapper"
-import { getChildren, navigation } from "../utils"
+import { closeAll, createVersion, find, getChildren, importFromKnowledg, navigation, noneAction, openDiagram, openKnowledgBase, viewCollaborate } from "../utils"
 
 type ContentProps = {
   list: ListItem[]
@@ -29,18 +29,41 @@ export const Content: FC<ContentProps> = ({
   }, [key])
 
   useEffect(() => {
-    console.log(key)
-  }, [key])
-
-  useEffect(() => {
     const enter = ShortcutService.enter$.subscribe(() => {
       const record = list.find(item => item.id === key)
       if (!record) return;
-      console.log(record)
       const { action } = record
-      switch (action) {
+      console.log(action)
+      switch (Number(action)) {
+        case Actions.OPEN_DIAGRAM:
+          openDiagram(record);
+          break;
+        case Actions.NONE:
+          noneAction(record)
+          break;
         case Actions.NAVIGATION:
           navigation(record)
+          break;
+        case Actions.IMPORT:
+          importFromKnowledg(record)
+          break;
+        case Actions.OPEN_VERSION:
+          navigation(record)
+          break;
+        case Actions.CREATE_VERSION:
+          createVersion(record)
+          break;
+        case Actions.VIEW_COLLABORATE:
+          viewCollaborate(record)
+          break;
+        case Actions.OPEN_KNOWLEDGEBASE:
+          openKnowledgBase(record)
+          break;
+        case Actions.CLOSE_ALL:
+          closeAll(record)
+          break;
+        case Actions.FIND:
+          find(record)
           break;
         default:
           break;
@@ -61,6 +84,7 @@ export const Content: FC<ContentProps> = ({
         setKey(activeKey)
       }}
       items={list.map(item => {
+        console.log(Number(item.content.type))
         return {
           key: item.id,
           label: <div>
@@ -68,7 +92,7 @@ export const Content: FC<ContentProps> = ({
           </div>,
           children: (
             <ContentWrapper>
-              {getChildren(item.content)}
+              {getChildren(item)}
             </ContentWrapper>
           )
         }

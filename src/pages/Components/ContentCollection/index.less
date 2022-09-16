@@ -1,0 +1,67 @@
+.previewCellContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  .contentContainer {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+
+    .textContainer {
+      display: flex;
+      flex-direction: column;
+      flex: 5;
+      color: #666666;
+      font-size: 12px;
+
+      .titleBox {
+        display: flex;
+        line-height: 16px;
+        font-size: 16px;
+        color: #999999;
+
+        .title {
+          font-weight: bold;
+          color: #333333;
+        }
+
+        .cellType {
+          color: gray;
+        }
+      }
+
+      .desc {
+        margin-top: 12px;
+      }
+
+      .createDiagram {
+        margin-top: 12px;
+
+        .createDiagramName {
+          color: #333333;
+          font-weight: bold;
+          margin-left: 4px;
+          margin-right: 4px;
+        }
+      }
+
+      .timeBox {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        margin-bottom: 12px;
+      }
+    }
+
+    .graph {
+      flex: 4;
+    }
+  }
+
+  .navigation {
+    border-top: 1px solid #CFCFCF;
+    padding: 20px 0;
+  }
+}

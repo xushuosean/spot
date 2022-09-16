@@ -2,14 +2,24 @@ import { message } from "antd"
 import { ContentEnums, ContentType, ListItem } from "../BaseTypes"
 import { Preivew, PreviewCell } from "./ContentCollection"
 
-export const getChildren = (content: ContentType) => {
-  if (content.type === ContentEnums.PREVIEW) {
-    return <Preivew content={content} />
-  } else if (content.type === ContentEnums.PREVIEW_CELL) {
-    return <PreviewCell content={content} />
+export const getChildren = (item: ListItem) => {
+  if (Number(item.content.type) === ContentEnums.PREVIEW) {
+    console.log('here is preview', item.title)
+    return <Preivew record={item} />
+  } else if (Number(item.content.type) === ContentEnums.PREVIEW_CELL) {
+    console.log('here is preview cell', item.title)
+    return <PreviewCell record={item} />
   }
   return null
 }
+
+export const getType = (type: string) => {
+  if (type === 'cell') {
+    return '图元'
+  }
+  return ''
+}
+
 
 /** 导航 */
 export const navigation = (record: ListItem) => {
@@ -49,4 +59,14 @@ export const openKnowledgBase = (record: ListItem) => {
 /** 关闭所有视图 */
 export const closeAll = (record: ListItem) => {
   message.success('action is: closeAll')
+}
+
+/** 打开查找替换 */
+export const find = (record: ListItem) => {
+  message.success('action is: find')
+}
+
+/** 什么也不做 */
+export const noneAction = (record: ListItem) => {
+  message.success('action is: none')
 }

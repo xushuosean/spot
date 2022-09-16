@@ -1,11 +1,11 @@
-import { ContentType } from "@/pages/BaseTypes"
+import { ContentType, ListItem } from "@/pages/BaseTypes"
 import { FC } from "react"
 
 type PreviewProps = {
-  content: ContentType
+  record: ListItem
 }
 export const Preivew: FC<PreviewProps> = ({
-  content
+  record
 }) => {
-  return <>{content.content}</>
+  return <>{record.title}</>
 }
