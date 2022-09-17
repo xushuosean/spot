@@ -97,10 +97,13 @@ export default function HomePage() {
     setFireWorksVisible(isWorking)
     if (!isWorking) return
     const config = {
+      top: 600,
       className: 'logoWrapper',
       content: ' ',
       duration: 300,
-      icon: <img className='logoImg' src={Logo} />
+      icon: <div className='imgWrapper' >
+        <img className='logoImg' src={Logo} />
+      </ div>
     }
     message.success(config)
   }
