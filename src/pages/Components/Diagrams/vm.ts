@@ -2,10 +2,12 @@ import { ReactElement } from 'react';
 import { makeAutoObservable } from "mobx";
 import { Subject } from "rxjs";
 import projectTreeViewModel from '@/pages/Components/ProjectTree/vm';
+import { GraphData } from '@/pages/Services/GraphicService';
 
 export type Diagram = {
     key: string
     label: string,
+    data?: GraphData,
     children?: ReactElement,
 }
 

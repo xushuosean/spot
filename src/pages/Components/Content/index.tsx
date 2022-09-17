@@ -4,7 +4,7 @@ import { List, Popover, Tabs } from "antd"
 import React, { FC, ReactNode, useEffect, useMemo, useRef, useState } from "react"
 import { Preivew } from "../ContentCollection"
 import { ContentWrapper } from "../ContentWrapper"
-import { closeAll, createVersion, find, getChildren, getGroupType, importFromKnowledg, navigation, noneAction, openDiagram, openKnowledgBase, viewCollaborate } from "../utils"
+import { closeAll, createVersion, find, getChildren, getGroupType, importFromKnowledge, navigation, noneAction, openDiagram, openKnowledgBase, openKnowledgeBase, viewCollaborate } from "../utils"
 import { LabelRender } from "./LabelRender"
 import _ from 'lodash'
 
@@ -62,7 +62,7 @@ export const Content: FC<ContentProps> = ({
           navigation(record)
           break;
         case Actions.IMPORT:
-          importFromKnowledg(record)
+          importFromKnowledge(record)
           break;
         case Actions.OPEN_VERSION:
           navigation(record)
@@ -74,7 +74,7 @@ export const Content: FC<ContentProps> = ({
           viewCollaborate(record)
           break;
         case Actions.OPEN_KNOWLEDGEBASE:
-          openKnowledgBase(record)
+          openKnowledgeBase(record)
           break;
         case Actions.CLOSE_ALL:
           closeAll(record)

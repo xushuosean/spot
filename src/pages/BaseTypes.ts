@@ -24,6 +24,7 @@ export interface ListItem {
   createTime?: string,
   eidtTime?: string,
   keyCode?: string
+  ownerDiagramId?: Guid,
 }
 
 export enum Types {

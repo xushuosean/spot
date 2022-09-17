@@ -36,12 +36,20 @@ const App: React.FC = () => {
         if (activeKey) setActiveKey(activeKey);
     };
 
+    const removeAll = () => {
+        setOpeningDiagrams([])
+    }
+
     const onEdit = (targetKey: string, action: 'add' | 'remove') => {
         if (action === 'remove') remove(targetKey);
     };
 
     useEffect(() => {
-        const sub = projectTreeViewModel.openingDiagram$.subscribe(({ diagramId, shapeId }) => {
+        const sub = projectTreeViewModel.openingDiagram$.subscribe(({ diagramId, shapeId, closeAll }) => {
+            if (closeAll) {
+                removeAll()
+                return
+            }
             if (diagramData.current.every(d => d.key !== diagramId)) return
             if (openingDiagrams.some(o => o.key === diagramId)) {
                 // 已打开直接选中图元

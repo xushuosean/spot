@@ -10,6 +10,7 @@ import projectTreeViewModel from '@/pages/Components/ProjectTree/vm'
 import { treeData, mockDiagramData } from '@/pages/data';
 import ProjectTree from '@/pages/Components/ProjectTree/index';
 import Diagrams from '@/pages/Components/Diagrams/index';
+import PopModal from './Components/Modal';
 
 type block = {
   id: string,
@@ -24,6 +25,8 @@ export default function HomePage() {
   useEffect(() => {
     init().then(() => {
       const initData = getData() as Data
+      console.log('7878initData', initData);
+
       setList(initData)
     })
   }, [])
@@ -40,20 +43,12 @@ export default function HomePage() {
 
   return (
     <div className='yt-container'>
-      <button onClick={() => projectTreeViewModel.navigateToShape("ov-1_高层zz概念视图1", "2")}>点击</button>
-      <ToolBox />
+      <button onClick={() => projectTreeViewModel.closeAllDiagrams()}>点击</button>
+      {/* <ToolBox /> */}
       <Search />
       <ProjectTree />
       <Diagrams />
-      {/* <div>
-        {
-          list?.blocks.map(b =>
-            <span key={b.id}>
-              {b.label}
-            </span>
-          )
-        }
-      </div> */}
+      <PopModal />
     </div >
   );
 }
