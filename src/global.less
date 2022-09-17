@@ -113,3 +113,45 @@
   color: #999999;
   font-size: 14px;
 }
+
+.logoWrapper {
+  background: transparent;
+
+  .ant-message-notice-content {
+    background: transparent;
+    box-shadow: none;
+
+    .ant-message-custom-content.ant-message-success {
+      display: flex;
+    }
+  }
+
+  .logoText {
+    font-size: 26px;
+  }
+}
+
+.logoImg {
+  animation: gradientLogo 1.5s;
+}
+
+@keyframes gradientLogo {
+
+  0% {
+    opacity: 0;
+  }
+
+  /*初始状态 透明度为0*/
+
+  40% {
+    opacity: 0;
+  }
+
+  /*过渡状态 透明度为0*/
+
+  100% {
+    opacity: 1;
+  }
+
+  /*结束状态 透明度为1*/
+}

@@ -16,7 +16,7 @@ import fireWorks2 from '@/assets/sounds/explosion1.mp3';
 import fireWorks3 from '@/assets/sounds/explosion2.mp3';
 import { message } from 'antd';
 import myIcon from '@/assets/table-icon.svg'
-import { getCellAndLine } from '@/request';
+import Logo from '@/assets/logo.png'
 
 const options: FireworksOptions = {
   autoresize: true,
@@ -97,9 +97,10 @@ export default function HomePage() {
     setFireWorksVisible(isWorking)
     if (!isWorking) return
     const config = {
-      content: '践行者远，同欲者胜。',
+      className: 'logoWrapper',
+      content: ' ',
       duration: 300,
-      icon: <img src={myIcon} />
+      icon: <img className='logoImg' src={Logo} />
     }
     message.success(config)
   }

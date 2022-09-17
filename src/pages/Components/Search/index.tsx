@@ -12,6 +12,7 @@ import { getDataFaker } from '@/pages/utils';
 import { ListItem } from '@/pages/BaseTypes';
 import { getData } from '@/request';
 import { searchContext } from '../utils';
+import projectTreeViewModel from "@/pages/Components/ProjectTree/vm";
 
 export const Search = () => {
   const [visible, setVisible] = useState<boolean>(false)
@@ -42,6 +43,10 @@ export const Search = () => {
 
   const [contentData, setContentData] = useState<ListItem[]>([])
   useEffect(() => {
+    if (searchValue === '烜翊') {
+      projectTreeViewModel.isFireWorksWorking(true)
+      return
+    }
     getData(searchValue).then(res => {
       setContentData(res.hits)
     })
