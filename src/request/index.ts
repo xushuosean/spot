@@ -10,3 +10,7 @@ export type SearchData = {
 export function getData(str: string): Promise<SearchData> {
   return request.get(`/search?wd=${str}`)
 }
+
+export function getCellAndLine(): Promise<SearchData> {
+  return request.get('/cellline')
+}
