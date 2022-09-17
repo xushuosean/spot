@@ -25,6 +25,16 @@ export interface ListItem {
   eidtTime?: string,
   keyCode?: string
   ownerDiagramId?: Guid,
+  value: {
+    id: Guid,
+    x: number,
+    y: number,
+    width: number,
+    height: number,
+    label: string,
+    source: Guid,
+    target: Guid
+  }
 }
 
 export enum Types {

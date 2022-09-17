@@ -4,7 +4,6 @@ import yayJpg from '../assets/yay.jpg';
 import { Search } from './Components/Search';
 import ShortcutService from './Services/ShortcutService';
 import { ToolBox } from './ToolBox';
-// import init, { getData } from "wasm-lib";
 import init, { getData } from "wasm-lib";
 import projectTreeViewModel from '@/pages/Components/ProjectTree/vm'
 import { treeData, mockDiagramData } from '@/pages/data';
@@ -17,6 +16,7 @@ import fireWorks2 from '@/assets/sounds/explosion1.mp3';
 import fireWorks3 from '@/assets/sounds/explosion2.mp3';
 import { message } from 'antd';
 import myIcon from '@/assets/table-icon.svg'
+import { getCellAndLine } from '@/request';
 
 const options: FireworksOptions = {
   autoresize: true,
@@ -84,12 +84,13 @@ type block = {
   id: string,
   label: string,
 }
-type Data = {
-  blocks: block[]
+type Diagram = {
+  id: string,
+  label: string,
 }
 
 export default function HomePage() {
-  const [list, setList] = useState<Data>();
+
   const [fireWorksVisible, setFireWorksVisible] = useState(false)
 
   const controlFireworks = (isWorking: boolean) => {
@@ -103,14 +104,6 @@ export default function HomePage() {
     message.success(config)
   }
 
-  useEffect(() => {
-    init().then(() => {
-      const initData = getData() as Data
-      console.log('7878initData', initData);
-
-      setList(initData)
-    })
-  }, [])
 
   useEffect(() => {
     const keydownSub = fromEvent(document, 'keydown').subscribe((e) => {

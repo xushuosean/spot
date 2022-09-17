@@ -2,11 +2,11 @@ import { useRef, useEffect, FC } from "react";
 import GraphicService, { GraphData } from "../Services/GraphicService";
 import projectTreeViewModel from '@/pages/Components/ProjectTree/vm'
 
-type Graphic = {
+type GraphicProps = {
     data: GraphData
 }
 /** 视图组件 */
-const Graphic: FC<Graphic> = ({ data }) => {
+const Graphic: FC<GraphicProps> = ({ data }) => {
     const container = useRef<HTMLDivElement>(null);
     const graphicRef = useRef<GraphicService>(new GraphicService())
 
