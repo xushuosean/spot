@@ -1,14 +1,14 @@
-import { message, notification } from "antd"
+import { Avatar, message, notification } from "antd"
 import { createContext } from "react"
 import { ContentEnums, ContentType, GroupType, ListItem } from "../BaseTypes"
 import { Preivew, PreviewCell, PreviewDiagram, PreviewLine, PreviewShortcut } from "./ContentCollection"
 import projectTreeViewModel from '@/pages/Components/ProjectTree/vm'
 import { PopModalProps } from "./Modal/type"
+import { SmileOutlined } from '@ant-design/icons'
 
 export const getChildren = (item: ListItem) => {
   const numberType = Number(item.content.type)
 
-  console.log(item.title, numberType, ContentEnums.PREVIEW_SHORTCUT)
   if (numberType === ContentEnums.PREVIEW) {
     return <Preivew record={item} />
   } else if (numberType === ContentEnums.PREVIEW_CELL) {
@@ -58,58 +58,65 @@ export const navigation = (record: ListItem) => {
     return
   }
   projectTreeViewModel.navigateToShape(ownerDiagramId, id);
-  message.success(`action is: Navigation`)
+  // message.success(`action is: Navigation`)
 }
 
 /** 打开视图 */
 export const openDiagram = (record: ListItem) => {
   projectTreeViewModel.openDiagram(record.id)
-  message.success('action is: openDiagram')
+  // message.success('action is: openDiagram')
 }
 
 /** 从知识库导入 */
 export const importFromKnowledge = (record: ListItem) => {
-  message.success('action is: importFromKnowledge')
+  message.success(`从知识库中导入 ${record.title} 成功`)
 }
 
 /** 打开版本管理 */
 export const openVersion = (record: ListItem) => {
   makeModalVisible({ title: '版本管理', content: '这是一个版本管理的弹窗。。。' })
-  message.success('action is: openVersion')
+  // message.success('action is: openVersion')
 }
 
 /** 创建版本管理 */
 export const createVersion = (record: ListItem) => {
-  message.success('action is: createVersion')
+  message.success('版本创建成功')
 }
 
 /** 查看协同人员 */
 export const viewCollaborate = (record: ListItem) => {
-  makeModalVisible({ title: '协同人员', content: '这是一个协同人员的弹窗。。。' })
-  message.success('action is: viewCollaborate')
+  notification.open({
+    message: '协同人员',
+    description: <>
+      <Avatar.Group>
+        <Avatar style={{ color: '#f56a00', backgroundColor: '#fde3cf' }}>A</Avatar>
+        <Avatar style={{ color: '#f56a00', backgroundColor: '#fde3cf' }}>B</Avatar>
+        <Avatar style={{ color: '#f56a00', backgroundColor: '#fde3cf' }}>C</Avatar>
+        <Avatar style={{ color: '#f56a00', backgroundColor: '#fde3cf' }}>D</Avatar>
+      </Avatar.Group>
+    </>,
+    icon: <SmileOutlined style={{ color: '#108ee9' }} />,
+  });
 }
 
 /** 打开知识库 */
 export const openKnowledgeBase = (record: ListItem) => {
   makeModalVisible({ title: '知识库', content: '这是一个知识库的弹窗。。。' })
-  message.success('action is: openKnowledgeBase')
 }
 
 /** 关闭所有视图 */
 export const closeAll = (record: ListItem) => {
   projectTreeViewModel.closeAllDiagrams();
-  message.success('action is: closeAll')
 }
 
 /** 打开查找替换 */
-export const find = (record: ListItem) => {
-  makeModalVisible({ title: '查找替换', content: '这是一个查找替换的弹窗。。。' })
-  message.success('action is: find')
+export const find = (record: ListItem, searchValue: string) => {
+  makeModalVisible({ title: '查找替换', content: `这是一个查找替换的弹窗，查找词为：${searchValue}` })
 }
 
 /** 什么也不做 */
 export const noneAction = (record: ListItem) => {
-  message.success('action is: none')
+  // message.success('action is: none')
 }
 
 const makeModalVisible = (props: PopModalProps) => {

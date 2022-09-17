@@ -1,10 +1,10 @@
 import { ContentType, ContentList, ContentEnums, ListItem, Actions, GroupType } from "@/pages/BaseTypes"
 import ShortcutService from "@/pages/Services/ShortcutService"
 import { List, Popover, Tabs } from "antd"
-import React, { FC, ReactNode, useEffect, useMemo, useRef, useState } from "react"
+import React, { FC, ReactNode, useContext, useEffect, useMemo, useRef, useState } from "react"
 import { Preivew } from "../ContentCollection"
 import { ContentWrapper } from "../ContentWrapper"
-import { closeAll, createVersion, find, getChildren, getGroupType, importFromKnowledge, navigation, noneAction, openDiagram, openKnowledgeBase, viewCollaborate } from "../utils"
+import { closeAll, createVersion, find, getChildren, getGroupType, importFromKnowledge, navigation, noneAction, openDiagram, openKnowledgeBase, searchContext, viewCollaborate } from "../utils"
 import { LabelRender } from "./LabelRender"
 import _ from 'lodash'
 
@@ -12,7 +12,8 @@ import styles from './index.less'
 import { GroupTabs } from "../GroupTabs"
 
 type ContentProps = {
-  list: ListItem[]
+  list: ListItem[],
+  visible: boolean
 }
 
 const TabNodeWrapper = (node: React.ReactElement) => {
@@ -22,9 +23,12 @@ const TabNodeWrapper = (node: React.ReactElement) => {
 }
 
 export const Content: FC<ContentProps> = ({
-  list
+  list,
+  visible
 }) => {
   const [key, setKey] = useState<string>('')
+
+  const { searchValue } = useContext(searchContext)
 
   useEffect(() => {
     if (list && list.length > 0 && key === '') {
@@ -47,6 +51,7 @@ export const Content: FC<ContentProps> = ({
 
   useEffect(() => {
     const enter = ShortcutService.enter$.subscribe(() => {
+      if (!visible) return
       const record = list.find(item => item.id === key)
       if (!record) return;
       const { action } = record
@@ -79,7 +84,7 @@ export const Content: FC<ContentProps> = ({
           closeAll(record)
           break;
         case Actions.FIND:
-          find(record)
+          find(record, searchValue)
           break;
         default:
           break;
@@ -91,7 +96,7 @@ export const Content: FC<ContentProps> = ({
     return () => {
       enter.unsubscribe();
     }
-  }, [key])
+  }, [key, visible])
 
   const sortList = useMemo(() => {
     const s = list.sort((a, b) => b.group.localeCompare(a.group))

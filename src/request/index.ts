@@ -14,3 +14,11 @@ export function getData(str: string): Promise<SearchData> {
 export function getCellAndLine(): Promise<SearchData> {
   return request.get('/cellline')
 }
+
+export function getCellById(str: string): Promise<SearchData> {
+  return request.get(`/getcell?id=${str}`)
+}
+
+export function getDiagramCell(id: string): Promise<SearchData> {
+  return request.get(`/diagram?owner=${id}`)
+}

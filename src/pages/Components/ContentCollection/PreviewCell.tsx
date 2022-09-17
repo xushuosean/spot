@@ -18,7 +18,6 @@ export const PreviewCell: FC<PreviewCellProps> = ({
 }) => {
   const cellRef = useRef<HTMLDivElement>(null)
   const graphicService = new GraphicService();
-  console.log(record)
   useEffect(() => {
     const cell = graphicService.getGraph()?.getCellById((record.content.content as ContentInner).cellId)
     if (!cellRef.current) return;

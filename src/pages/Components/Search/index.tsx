@@ -77,7 +77,7 @@ export const Search = () => {
               className={styles.dragBox}
             >
               <Input prefix={<SearchOutlined />} style={{ background: 'inherit' }} value={searchValue} ref={inputRef} onChange={onValueChange} size="large" />
-              <Content list={contentData} />
+              <Content list={contentData} visible={visible} />
             </div>
           </Draggable>
         </Mask>
