@@ -44,7 +44,7 @@ export default function HomePage() {
   return (
     <div className='yt-container'>
       <button onClick={() => projectTreeViewModel.closeAllDiagrams()}>点击</button>
-      <ToolBox />
+      {/* <ToolBox /> */}
       <Search />
       <ProjectTree />
       <Diagrams />
