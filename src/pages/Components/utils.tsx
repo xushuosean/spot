@@ -1,4 +1,4 @@
-import { message } from "antd"
+import { message, notification } from "antd"
 import { createContext } from "react"
 import { ContentEnums, ContentType, GroupType, ListItem } from "../BaseTypes"
 import { Preivew, PreviewCell, PreviewDiagram, PreviewLine, PreviewShortcut } from "./ContentCollection"

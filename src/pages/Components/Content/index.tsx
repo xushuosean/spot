@@ -4,7 +4,7 @@ import { List, Popover, Tabs } from "antd"
 import React, { FC, ReactNode, useEffect, useMemo, useRef, useState } from "react"
 import { Preivew } from "../ContentCollection"
 import { ContentWrapper } from "../ContentWrapper"
-import { closeAll, createVersion, find, getChildren, getGroupType, importFromKnowledge, navigation, noneAction, openDiagram, openKnowledgBase, openKnowledgeBase, viewCollaborate } from "../utils"
+import { closeAll, createVersion, find, getChildren, getGroupType, importFromKnowledge, navigation, noneAction, openDiagram, openKnowledgeBase, viewCollaborate } from "../utils"
 import { LabelRender } from "./LabelRender"
 import _ from 'lodash'
 
@@ -50,7 +50,6 @@ export const Content: FC<ContentProps> = ({
       const record = list.find(item => item.id === key)
       if (!record) return;
       const { action } = record
-      console.log(action)
       switch (Number(action)) {
         case Actions.OPEN_DIAGRAM:
           openDiagram(record);
@@ -85,6 +84,8 @@ export const Content: FC<ContentProps> = ({
         default:
           break;
       }
+
+      ShortcutService.actionOver$.next(true)
     });
 
     return () => {

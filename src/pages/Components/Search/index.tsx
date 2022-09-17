@@ -47,6 +47,17 @@ export const Search = () => {
     })
   }, [searchValue])
 
+  useEffect(() => {
+    const sub = ShortcutService.actionOver$.subscribe(() => {
+      setVisible(false)
+    });
+
+    return () => {
+      sub.unsubscribe();
+    }
+  }, [])
+
+
   return (
     <>
       <searchContext.Provider value={{ searchValue: searchValue }}>

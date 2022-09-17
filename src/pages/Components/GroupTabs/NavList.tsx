@@ -1,7 +1,10 @@
-import React, { FC, useMemo } from "react"
+import React, { FC, useEffect, useMemo, useRef } from "react"
 import { GroupTab } from "."
 import _ from 'lodash'
 import styles from './index.less'
+import ShortcutService from "@/pages/Services/ShortcutService"
+import { merge } from "rxjs"
+import { map } from 'rxjs/operators'
 
 type NavListProps = {
   activeKey: string,
@@ -53,6 +56,47 @@ export const NavList: FC<NavListProps> = ({
     return gks
   }, [groupsItems])
 
+  const idLists = useMemo(() => {
+    const list = keys.map(key => {
+      const item = groupsItems[key]
+      return item.map(it => {
+        return it.key
+      })
+    })
+
+    return _.flatMapDeep(list)
+  }, [groupsItems, keys])
+
+  const activeKeyRef = useRef<string>(activeKey)
+  useEffect(() => {
+    activeKeyRef.current = activeKey
+  }, [activeKey])
+
+  useEffect(() => {
+
+    const arrow = merge(
+      ShortcutService.arrowUp$.pipe(map(() => -1)),
+      ShortcutService.arrowDown$.pipe(map(() => 1))
+    ).subscribe((value) => {
+      const index = idLists.findIndex((id) => id === activeKey)
+      if (index !== -1) {
+        const resolveKeyIndex = index + value
+        if (resolveKeyIndex <= 0) {
+          onChange(idLists[0])
+        } else if (resolveKeyIndex >= idLists.length - 1) {
+          onChange(idLists[idLists.length - 1])
+        } else {
+          onChange(idLists[resolveKeyIndex])
+        }
+      }
+    })
+
+    return () => {
+      arrow.unsubscribe();
+    }
+  }, [idLists])
+
+
   return <>
     {
       groupKey ?
@@ -70,7 +114,10 @@ export const NavList: FC<NavListProps> = ({
                       groupItem.map(gr => {
                         return <TabNode onClick={() => {
                           onTabNodeClick(gr.key)
-                        }} key={gr.key} isActive={activeKey === gr.key} label={gr.label} />
+                        }} key={gr.key} isActive={(() => {
+                          console.log(activeKey, gr.key)
+                          return activeKey === gr.key
+                        })()} label={gr.label} />
                       })
                     }
                   </>
@@ -85,7 +132,10 @@ export const NavList: FC<NavListProps> = ({
               items.map(item => {
                 return <TabNode onClick={() => {
                   onTabNodeClick(item.key)
-                }} key={item.key} isActive={activeKey === item.key} label={item.label} />
+                }} key={item.key} isActive={(() => {
+                  console.log(activeKey, item.key)
+                  return activeKey === item.key
+                })()} label={item.label} />
               })
             }
           </div>

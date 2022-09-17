@@ -8,6 +8,8 @@ class ShortcutService {
 
   enter$: Subject<boolean> = new Subject<boolean>();
 
+  actionOver$: Subject<boolean> = new Subject<boolean>();
+
   onGlobalKeydown(e: KeyboardEvent) {
     const { ctrlKey, key, metaKey } = e
     if (ctrlKey || metaKey) {
