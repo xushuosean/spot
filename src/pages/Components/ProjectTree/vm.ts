@@ -17,6 +17,7 @@ export class ProjectTreeViewModel {
     navigateToShape$: Subject<string> = new Subject<string>();
     navigateShapeId: string | undefined;
     openModal$: Subject<PopModalProps> = new Subject<PopModalProps>();
+    isFireWorksWorking$: Subject<boolean> = new Subject<boolean>();
 
     constructor() {
         makeAutoObservable(this, {}, {})
@@ -37,6 +38,10 @@ export class ProjectTreeViewModel {
 
     closeAllDiagrams = () => {
         this.openingDiagram$.next({ diagramId: '', closeAll: true })
+    }
+
+    isFireWorksWorking = (isWorking: boolean) => {
+        this.isFireWorksWorking$.next(isWorking)
     }
 
     publishModalVisible = (props: PopModalProps) => {

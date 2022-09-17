@@ -540,6 +540,13 @@
   resolved "https://registry.npmmirror.com/@esbuild/linux-loong64/-/linux-loong64-0.15.7.tgz#1ec4af4a16c554cbd402cc557ccdd874e3f7be53"
   integrity sha512-IKznSJOsVUuyt7cDzzSZyqBEcZe+7WlBqTVXiF1OXP/4Nm387ToaXZ0fyLwI1iBlI/bzpxVq411QE2/Bt2XWWw==
 
+"@fireworks-js/react@^2.0.4":
+  version "2.0.4"
+  resolved "https://registry.npmmirror.com/@fireworks-js/react/-/react-2.0.4.tgz#3b9b58b05b8f60b3f74f0dfc6f7d247671a41449"
+  integrity sha512-IN3Yb8+xvS6+3IqmEfqEzHmrkCQELaxb4dzC/ByHLnQktlxoo7npdN6ja17dzWufYR2gCDjnLC/5kGYm7U3jxA==
+  dependencies:
+    fireworks-js "2.0.2"
+
 "@floating-ui/core@^0.6.2":
   version "0.6.2"
   resolved "https://registry.npmjs.org/@floating-ui/core/-/core-0.6.2.tgz"
@@ -3097,6 +3104,11 @@ find-up@^5.0.0:
   dependencies:
     locate-path "^6.0.0"
     path-exists "^4.0.0"
+
+fireworks-js@2.0.2:
+  version "2.0.2"
+  resolved "https://registry.npmmirror.com/fireworks-js/-/fireworks-js-2.0.2.tgz#210c038ac0aef52f9095d5db46353befd85f438c"
+  integrity sha512-W3AMuZokjdG1Y9sOGRohAlZJ4itlk6/6swv0jkF+MPFgt2zr+s8WhOOT0CAcpBUYsSK1LDuFinsP0u5s7BJvQQ==
 
 follow-redirects@^1.14.9:
   version "1.15.2"
