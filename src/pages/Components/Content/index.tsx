@@ -4,7 +4,7 @@ import { List, Popover, Tabs } from "antd"
 import { FC, useEffect, useRef, useState } from "react"
 import { Preivew } from "../ContentCollection"
 import { ContentWrapper } from "../ContentWrapper"
-import { closeAll, createVersion, find, getChildren, importFromKnowledg, navigation, noneAction, openDiagram, openKnowledgBase, viewCollaborate } from "../utils"
+import { closeAll, createVersion, find, getChildren, importFromKnowledge, navigation, noneAction, openDiagram, openKnowledgeBase, viewCollaborate } from "../utils"
 
 type ContentProps = {
   list: ListItem[]
@@ -45,7 +45,7 @@ export const Content: FC<ContentProps> = ({
           navigation(record)
           break;
         case Actions.IMPORT:
-          importFromKnowledg(record)
+          importFromKnowledge(record)
           break;
         case Actions.OPEN_VERSION:
           navigation(record)
@@ -57,7 +57,7 @@ export const Content: FC<ContentProps> = ({
           viewCollaborate(record)
           break;
         case Actions.OPEN_KNOWLEDGEBASE:
-          openKnowledgBase(record)
+          openKnowledgeBase(record)
           break;
         case Actions.CLOSE_ALL:
           closeAll(record)

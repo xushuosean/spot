@@ -14,26 +14,58 @@ pub struct Block {
     id: String,
     label: String,
 }
+#[wasm_bindgen]
+#[derive(Debug, Serialize, Deserialize)]
+pub struct Diagram {
+    id: String,
+    label: String,
+    // {
+    //     key: 'ov-1_高层zz概念视图1',
+    //     label: 'ov-1_高层zz概念视图1',
+}
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Data {
     blocks: Vec<Block>,
 }
-
+#[derive(Debug, Serialize, Deserialize)]
+pub struct DiagramData {
+    diagrams: Vec<Diagram>,
+}
 #[wasm_bindgen]
 pub fn getData() -> JsValue {
-    let res = Data {
-        blocks: vec![
-            Block {
+    // let res = Data {
+    //     blocks: vec![
+    //         Block {
+    //             id: '1'.to_string(),
+    //             label: "作战单位1".to_string(),
+    //         },
+    //         Block {
+    //             id: '2'.to_string(),
+    //             label: "作战单位2".to_string(),
+    //         },
+    //         Block {
+    //             id: '3'.to_string(),
+    //             label: "作战单位3".to_string(),
+    //         },
+    //     ],
+    // };
+    let res = DiagramData {
+        diagrams: vec![
+            Diagram {
                 id: '1'.to_string(),
-                label: "作战单位1".to_string(),
+                label: "ov-1_高层zz概念视图1".to_string(),
             },
-            Block {
+            Diagram {
                 id: '2'.to_string(),
-                label: "作战单位2".to_string(),
+                label: "ov-1_高层图形zz概念视图1".to_string(),
             },
-            Block {
+            Diagram {
                 id: '3'.to_string(),
-                label: "作战单位3".to_string(),
+                label: "ov-2_zz单位关系视图1".to_string(),
+            },
+            Diagram {
+                id: '4'.to_string(),
+                label: "ov-2_zz部队资源流视图1".to_string(),
             },
         ],
     };

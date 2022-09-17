@@ -23,6 +23,7 @@ export interface ListItem {
   canCreate?: string,
   createTime?: string,
   eidtTime?: string,
+  ownerDiagramId?: Guid,
 }
 
 export enum Types {
