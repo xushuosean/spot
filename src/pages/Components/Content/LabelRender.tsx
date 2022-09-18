@@ -1,6 +1,6 @@
 import { ListItem, Types } from "@/pages/BaseTypes"
 import { FC, useContext } from "react"
-import { getType, searchContext } from "../utils"
+import { getIcon, getType, searchContext } from "../utils"
 import { cellIcon, diagramIcon, findIcon, lineIcon, rightIcon } from "./icon"
 import { RightOutlined } from '@ant-design/icons'
 
@@ -20,18 +20,7 @@ export const LabelRender: FC<LabelRenderProps> = ({ record }) => {
 
   const { searchValue } = useContext(searchContext)
 
-  const getIcon = (type: Types) => {
-    switch (type) {
-      case Types.Cell:
-        return cellIcon
-      case Types.Find:
-        return findIcon
-      case Types.Line:
-        return lineIcon
-      default:
-        return diagramIcon
-    }
-  }
+
 
   return <div className={styles.labelRender}>
     <img src={getIcon(record.type)} alt="" />

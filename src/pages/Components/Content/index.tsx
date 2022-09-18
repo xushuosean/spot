@@ -108,6 +108,15 @@ export const Content: FC<ContentProps> = ({
     return value ? <div key={groupKey} className="groupLabel">{value}</div> : <></>
   }
 
+
+  useEffect(() => {
+    const activeItem = sortList.find(item => item.id === key)
+    if (activeItem) {
+      ShortcutService.iconChange$.next(activeItem)
+    }
+
+  }, [key])
+
   return (
     <GroupTabs
       activeKey={key}

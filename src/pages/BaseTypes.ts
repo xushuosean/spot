@@ -42,7 +42,8 @@ export enum Types {
   Line = 'line',
   Find = 'find',
   CreateVersion = 'createVersion',
-  Collaborate = 'collaborate'
+  Collaborate = 'collaborate',
+  Shortcut = 'shortcut'
 }
 
 // export type Groups = Record<GroupType, ListItem[]>
@@ -80,7 +81,8 @@ export enum ContentEnums {
   NONE,
   PREVIEW_DIAGRAM,
   PREVIEW_LINE,
-  PREVIEW_SHORTCUT
+  PREVIEW_SHORTCUT,
+  PREVIEW_COLLABORATE
 }
 
 export type ContentInner = {

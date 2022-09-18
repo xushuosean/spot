@@ -1,0 +1,24 @@
+.collaborateBox {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .iconBox {
+    img {
+      width: 90px;
+    }
+
+    margin-bottom: 20px;
+  }
+
+  .avatarBox {
+    :global {
+      .ant-avatar {
+        margin: 0 4px;
+      }
+    }
+  }
+}

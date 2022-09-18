@@ -1,3 +1,4 @@
+import { ListItem } from '@/pages/BaseTypes';
 import { Subject } from "rxjs";
 
 class ShortcutService {
@@ -9,6 +10,8 @@ class ShortcutService {
   enter$: Subject<boolean> = new Subject<boolean>();
 
   actionOver$: Subject<boolean> = new Subject<boolean>();
+
+  iconChange$: Subject<ListItem> = new Subject<ListItem>();
 
   onGlobalKeydown(e: KeyboardEvent) {
     const { ctrlKey, key, metaKey } = e

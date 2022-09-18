@@ -8,6 +8,9 @@ import lineIcon from '@/assets/lineicon.svg'
 import shitujuzhenIcon from '@/assets/shitujuzhen.svg'
 import tableIcon from '@/assets/table-icon.svg'
 import rightIcon from '@/assets/righticon.svg'
+import collaborateIcon from '@/assets/collaborateicon.svg'
+import shortcutIcon from '@/assets/shortcuticon.svg'
+import versionIcon from '@/assets/versionicon.svg'
 
 export {
   atlasIcon,
@@ -19,5 +22,8 @@ export {
   lineIcon,
   shitujuzhenIcon,
   tableIcon,
-  rightIcon
+  rightIcon,
+  collaborateIcon,
+  shortcutIcon,
+  versionIcon
 }

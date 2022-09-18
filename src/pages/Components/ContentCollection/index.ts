@@ -7,3 +7,5 @@ export { PreviewDiagram } from './PreviewDiagram'
 export { PreviewLine } from './PreviewLine'
 
 export { PreviewShortcut } from './PreviewShortcut'
+
+export { PreviewCollaborate } from './PreviewCollaborate'

@@ -1,10 +1,11 @@
 import { Avatar, message, notification } from "antd"
 import { createContext } from "react"
-import { ContentEnums, ContentType, GroupType, ListItem } from "../BaseTypes"
-import { Preivew, PreviewCell, PreviewDiagram, PreviewLine, PreviewShortcut } from "./ContentCollection"
+import { ContentEnums, ContentType, GroupType, ListItem, Types } from "../BaseTypes"
+import { Preivew, PreviewCell, PreviewCollaborate, PreviewDiagram, PreviewLine, PreviewShortcut } from "./ContentCollection"
 import projectTreeViewModel from '@/pages/Components/ProjectTree/vm'
 import { PopModalProps } from "./Modal/type"
 import { SmileOutlined } from '@ant-design/icons'
+import { cellIcon, collaborateIcon, diagramIcon, findIcon, lineIcon, shortcutIcon, versionIcon } from "./Content/icon"
 
 export const getChildren = (item: ListItem) => {
   const numberType = Number(item.content.type)
@@ -18,8 +19,9 @@ export const getChildren = (item: ListItem) => {
   } else if (numberType === ContentEnums.PREVIEW_LINE) {
     return <PreviewLine record={item} />
   } else if (numberType === ContentEnums.PREVIEW_SHORTCUT) {
-    console.log('here run short')
     return <PreviewShortcut record={item} />
+  } else if (numberType === ContentEnums.PREVIEW_COLLABORATE) {
+    return <PreviewCollaborate record={item} />
   }
   return null
 }
@@ -48,6 +50,25 @@ export const getType = (type: string) => {
     return '线'
   }
   return ''
+}
+
+export const getIcon = (type: Types) => {
+  switch (type) {
+    case Types.Cell:
+      return cellIcon
+    case Types.Find:
+      return findIcon
+    case Types.Line:
+      return lineIcon
+    case Types.Collaborate:
+      return collaborateIcon
+    case Types.Shortcut:
+      return shortcutIcon
+    case Types.CreateVersion:
+      return versionIcon
+    default:
+      return diagramIcon
+  }
 }
 
 /** 导航 */
