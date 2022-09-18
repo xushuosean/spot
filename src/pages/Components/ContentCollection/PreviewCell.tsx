@@ -1,10 +1,13 @@
 import { ContentInner, ContentType, ListItem } from "@/pages/BaseTypes"
 import GraphicService from "@/pages/Services/GraphicService"
 import { Graph, Shape } from "@antv/x6"
-import { FC, useEffect, useRef } from "react"
+import { FC, useEffect, useMemo, useRef, useState } from "react"
 import { getType } from "../utils"
 import styles from './index.less'
+import init, { getData as getDiagramData } from "wasm-lib";
 import { TopTitle } from "./TopTitle"
+import { DiagramData } from "../Diagrams/type"
+import { Diagram } from "../Diagrams/vm"
 
 export type PreviewCellProps = {
   record: ListItem
@@ -15,8 +18,8 @@ export const PreviewCell: FC<PreviewCellProps> = ({
 }) => {
   const cellRef = useRef<HTMLDivElement>(null)
   const graphicService = new GraphicService();
-  const cell = graphicService.getGraph()?.getCellById((record.content.content as ContentInner).cellId)
   useEffect(() => {
+    const cell = graphicService.getGraph()?.getCellById((record.content.content as ContentInner).cellId)
     if (!cellRef.current) return;
     const graph = new Graph({
       container: cellRef.current,
@@ -27,9 +30,31 @@ export const PreviewCell: FC<PreviewCellProps> = ({
       },
     })
 
-    if (cell)
-      graph.addNode(cell?.toJSON())
-  }, [])
+    const { value } = record
+    if (value) {
+      graph.addNode(value)
+      const cell = graph.getCellById(value.id)
+      graph.centerCell(cell)
+    }
+  }, [record])
+
+  const [ownerDiagram, setOwnerDiagram] = useState<Diagram>()
+
+  useEffect(() => {
+    (async () => {
+      await init()
+      const initData = getDiagramData() as DiagramData;
+      // getDiagramData().then((initData: DiagramData) => {
+      //   const diagram = initData.diagrams.find(item => item.id === record.ownerDiagramId)
+      //   setOwnerDiagram(diagram)
+      //   console.log(diagram)
+      // })
+      const diagram = initData.diagrams.find(item => item.id === record.ownerDiagramId)
+      setOwnerDiagram(diagram)
+      console.log(diagram)
+    })()
+  }, [record])
+
 
   return <div className={styles.previewCellContainer}>
     <div className={styles.contentContainer}>
@@ -47,8 +72,7 @@ export const PreviewCell: FC<PreviewCellProps> = ({
     </div>
     <div className={styles.navigation}>
       该图元存在：
-      <div>dafsd</div>
-      <div>dfasdfasd</div>
+      <div>{ownerDiagram?.label}</div>
     </div>
   </div>
 }

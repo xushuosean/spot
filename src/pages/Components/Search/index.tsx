@@ -52,6 +52,17 @@ export const Search = () => {
     })
   }, [searchValue])
 
+  useEffect(() => {
+    const sub = ShortcutService.actionOver$.subscribe(() => {
+      setVisible(false)
+    });
+
+    return () => {
+      sub.unsubscribe();
+    }
+  }, [])
+
+
   return (
     <>
       <searchContext.Provider value={{ searchValue: searchValue }}>
@@ -66,7 +77,7 @@ export const Search = () => {
               className={styles.dragBox}
             >
               <Input prefix={<SearchOutlined />} style={{ background: 'inherit' }} value={searchValue} ref={inputRef} onChange={onValueChange} size="large" />
-              <Content list={contentData} />
+              <Content list={contentData} visible={visible} />
             </div>
           </Draggable>
         </Mask>

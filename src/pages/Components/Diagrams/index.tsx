@@ -356,7 +356,7 @@ const App: React.FC = () => {
 
     const add = (diagramId: string) => {
         if (openingDiagrams.some(o => o.id === diagramId)) return
-        const targetDiagram = diagramData.current.find(d => d.id === diagramId)
+        const targetDiagram = diagramData.current?.find(d => d.id === diagramId)
         if (!targetDiagram) return
         openingDiagrams.push(targetDiagram)
         setOpeningDiagrams([...openingDiagrams]);
@@ -384,11 +384,8 @@ const App: React.FC = () => {
             // webassembly 数据初始化
             await init()
             const initData = await getDiagramData() as DiagramData
-            console.log('log webassembly data', initData);
-
             // milisearch 图元初始化
             const allShape = await getCellAndLine() as ShapeData;
-            console.log('log milisearch cellAndLine data', allShape);
 
             // const allShape: ShapeData = {
             //     "hits": [
@@ -682,14 +679,12 @@ const App: React.FC = () => {
 
             // 恢复视图数据
             const { diagrams } = initData
-            diagramData.current = diagrams.map(d => {
+            diagramData.current = diagrams?.map(d => {
                 const data: GraphData = {
                     nodes: cell.filter(c => c.ownerDiagramId === d.id).map(c => generateNode(c)),
                     edges: line.filter(l => l.ownerDiagramId === d.id).map(l => generateLine(l))
                 }
                 d.data = data;
-                // d.children = <Graphic data={data} />
-                // return d
                 return {
                     ...d,
                     key: d.id,
@@ -705,7 +700,7 @@ const App: React.FC = () => {
                 removeAll()
                 return
             }
-            if (diagramData.current.every(d => d.id !== diagramId)) return
+            if (diagramData.current?.every(d => d.id !== diagramId)) return
             if (openingDiagrams.some(o => o.id === diagramId)) {
                 // 已打开直接选中图元
                 active(diagramId);

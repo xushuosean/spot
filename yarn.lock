@@ -542,7 +542,7 @@
 
 "@fireworks-js/react@^2.0.4":
   version "2.0.4"
-  resolved "https://registry.npmmirror.com/@fireworks-js/react/-/react-2.0.4.tgz#3b9b58b05b8f60b3f74f0dfc6f7d247671a41449"
+  resolved "https://registry.npmmirror.com/@fireworks-js/react/-/react-2.0.4.tgz"
   integrity sha512-IN3Yb8+xvS6+3IqmEfqEzHmrkCQELaxb4dzC/ByHLnQktlxoo7npdN6ja17dzWufYR2gCDjnLC/5kGYm7U3jxA==
   dependencies:
     fireworks-js "2.0.2"
@@ -3107,7 +3107,7 @@ find-up@^5.0.0:
 
 fireworks-js@2.0.2:
   version "2.0.2"
-  resolved "https://registry.npmmirror.com/fireworks-js/-/fireworks-js-2.0.2.tgz#210c038ac0aef52f9095d5db46353befd85f438c"
+  resolved "https://registry.npmmirror.com/fireworks-js/-/fireworks-js-2.0.2.tgz"
   integrity sha512-W3AMuZokjdG1Y9sOGRohAlZJ4itlk6/6swv0jkF+MPFgt2zr+s8WhOOT0CAcpBUYsSK1LDuFinsP0u5s7BJvQQ==
 
 follow-redirects@^1.14.9:

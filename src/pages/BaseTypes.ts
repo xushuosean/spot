@@ -41,6 +41,8 @@ export enum Types {
   Cell = 'cell',
   Line = 'line',
   Find = 'find',
+  CreateVersion = 'createVersion',
+  Collaborate = 'collaborate'
 }
 
 // export type Groups = Record<GroupType, ListItem[]>
