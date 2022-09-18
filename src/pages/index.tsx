@@ -124,7 +124,7 @@ export default function HomePage() {
 
   return (
     <div className='yt-container'>
-      <button onClick={() => controlFireworks(true)}>点击</button>
+      {/* <button onClick={() => controlFireworks(true)}>点击</button> */}
       {/* <ToolBox /> */}
       <Search />
       <ProjectTree />
