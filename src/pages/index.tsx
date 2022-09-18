@@ -74,7 +74,7 @@ const options: FireworksOptions = {
       fireWorks3
     ],
     volume: {
-      max: 100,
+      max: 10,
       min: 1
     }
   }

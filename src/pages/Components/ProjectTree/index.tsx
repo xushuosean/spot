@@ -10,6 +10,7 @@ const ProjectTree = observer(() => {
             {
                 vm.treeData.length > 0 &&
                 < Tree
+                    className='projectTree'
                     defaultExpandAll
                     treeData={vm.treeData}
                     onDoubleClick={(e, node) => {
